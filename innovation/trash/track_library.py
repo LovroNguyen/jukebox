@@ -1,4 +1,4 @@
-from library_item import LibraryItem
+from model.library_item import LibraryItem
 
 library = []
 

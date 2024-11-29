@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.scrolledtext as tkst
-import font_manager as fonts
-import inovation.trash.track_library as lib
+import model.font_manager as fonts
+import track_library as lib
 import webbrowser
 
 def set_text(text_area, content):
