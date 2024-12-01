@@ -25,7 +25,7 @@ class LibraryUI:
         self.search_var = tk.StringVar()
         search_entry = tk.Entry(window, textvariable=self.search_var, width=35)
         search_entry.grid(row=0, column=1, sticky="w", padx=10, pady=(20, 10))
-        search_entry.bind('<KeyRelease>', Helper.search_song)
+        search_entry.bind('<KeyRelease>', lambda event: Helper.search_song(self, event))
 
         # invisible label for grid placement
         undisplay_lbl = tk.Label(window)
@@ -33,9 +33,9 @@ class LibraryUI:
 
         self.song_listbox = Listbox(window, height=14, width=50)
         self.song_listbox.grid(row=1, column=1, rowspan=3, sticky="nsew", padx=10, pady=(10,20))
-        self.song_listbox.bind('<<ListboxSelect>>', Helper.on_song_select)
+        self.song_listbox.bind('<<ListboxSelect>>', self.on_song_select)
 
-        self.playlist_button = tk.Button(window, text="Playlist", width=12, command=Helper.playlist_button_clicked)
+        self.playlist_button = tk.Button(window, text="Playlist", width=12, command=lambda: Helper.playlist_button_clicked(self))
         self.playlist_button.grid(row=1, column=0, sticky="n", padx=(20,10), pady=(10, 10))
 
         self.image_label = tk.Label(window, bg="white", width=19, height=9)
@@ -44,7 +44,7 @@ class LibraryUI:
         self.song_details_label = tk.Label(window, justify="left", width=30, anchor="w")
         self.song_details_label.grid(row=3, column=2, sticky="n", padx=(20, 20), pady=(10, 0))
 
-        self.play_button = tk.Button(window, text="Play", width=10, command=Helper.play_song)
+        self.play_button = tk.Button(window, text="Play", width=10, command=lambda: Helper.play_song(self))
         self.play_button.grid(row=4, column=2, sticky="s", padx=10, pady=(0, 10))
 
         self.songs = []
@@ -57,3 +57,14 @@ class LibraryUI:
         self.displayed_songs = songs  # Update the displayed songs
         for song in songs:
             self.song_listbox.insert(tk.END, f"{song['name']} - {song['artist']}")
+
+    def on_song_select(self, event):
+        """Handle song selection and display details."""
+        selected_index = self.song_listbox.curselection()
+        if selected_index:
+            song = self.displayed_songs[selected_index[0]]
+            Helper.display_song_details(self, song)  # Pass `self` and the selected song
+    
+
+    def playlist_button_clicked(self):
+        self.clear_frame()
