@@ -12,7 +12,7 @@ class PlaylistUI:
         self.window = window
         self.ui_manager = ui_manager
         window.geometry("1200x600")
-        window.title("Playlist Management")
+        window.title("JukeBox")
 
         fonts.configure()
 
@@ -37,10 +37,10 @@ class PlaylistUI:
         self.back_button.grid(row=1, column=0, sticky="n", padx=(40,30), pady=(10, 10))
 
         self.add_to_playlist_button = tk.Button(window, text="Add", width=10, command=self.add_to_playlist)
-        self.add_to_playlist_button.grid(row=3, column=2, sticky="nw", padx=(50,25), pady=(20, 10))
+        self.add_to_playlist_button.grid(row=3, column=2, sticky="nw", padx=(50,25))
 
         self.remove_from_button = tk.Button(window, text="Remove", width=10, command=self.remove_song_from_playlist)
-        self.remove_from_button.grid(row=3, column=3, sticky="nw", padx=(25,50), pady=(20, 10))
+        self.remove_from_button.grid(row=3, column=3, sticky="nw", padx=(25,30))
 
         self.add_playlist_button = tk.Button(window, text="Add playlist", width=14, command=self.add_playlist)
         self.add_playlist_button.grid(row=1, column=0, padx=(20,10), pady=(20, 0))
@@ -49,7 +49,7 @@ class PlaylistUI:
         self.remove_playlist_button.grid(row=1, column=0, sticky="s", padx=(20,10), pady=(0, 20))
 
         self.song_listbox = Listbox(window, height=7, width=50, exportselection=0)
-        self.song_listbox.grid(row=1, column=1, sticky="nsew", padx=10, pady=(10,20))
+        self.song_listbox.grid(row=1, column=1, sticky="nsew", padx=10, pady=(10,15))
         self.song_listbox.bind('<<ListboxSelect>>', self.on_song_select)
 
         self.image_label = tk.Label(window, bg="white", width=19, height=9)

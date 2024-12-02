@@ -38,7 +38,7 @@ class LibraryUI:
         self.song_listbox.bind('<<ListboxSelect>>', self.on_song_select)
 
         self.playlist_button = tk.Button(window, text="Playlist", width=12, command= self.playlist_button_clicked)
-        self.playlist_button.grid(row=1, column=0, sticky="n", padx=(20,10), pady=(10, 10))
+        self.playlist_button.grid(row=1, column=0, sticky="n", padx=(40,30), pady=(10, 10))
 
         self.image_label = tk.Label(window, bg="white", width=19, height=9)
         self.image_label.grid(row=1, column=2, rowspan=2, sticky="n", padx=(0, 0), pady=(10, 10))
