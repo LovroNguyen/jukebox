@@ -14,7 +14,7 @@ class Helper:
     @staticmethod
     def load_songs(instance):
         script_dir = os.path.dirname(__file__)
-        csv_path = os.path.join(script_dir, "songs.csv") 
+        csv_path = os.path.join(script_dir, "songs.csv")
         instance.songs = []
         with open(csv_path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
@@ -38,16 +38,14 @@ class Helper:
     def play_song(instance):
         selected_index = instance.song_listbox.curselection()
         if selected_index:
-            song = Helper.displayed_songs[selected_index[0]]  # Use displayed_songs instead of self.songs
+            song = Helper.displayed_songs[selected_index[0]]
             webbrowser.open(song['youtube_link'])
         else:
-            messagebox.showwarning(title="Warning", message="Please choose a song from the list !")
+            messagebox.showwarning(title="Warning", message="Please choose a song from the list!")
 
     @staticmethod
     def display_song_details(instance, song):
-        """Display details and image of the selected song."""
         try:
-            # Load and resize the image
             pil_image = Image.open(song['image_path'])
             aspect_ratio = pil_image.width / pil_image.height
             new_height = 240
@@ -56,16 +54,13 @@ class Helper:
             pil_image = pil_image.resize((new_width, new_height), Image.LANCZOS)
             track_img = ImageTk.PhotoImage(pil_image)
 
-            # Update image_label in the instance
             instance.image_label.config(image=track_img)
             instance.image_label.image = track_img
             instance.image_label.config(width=new_width, height=new_height)
         except (FileNotFoundError, OSError) as e:
             print(f"Error loading image: {e}")
-            # Reset image label if error occurs
             instance.image_label.config(image='', bg="white", width=15, height=7)
 
-        # Update song details label
         instance.song_details_label.config(
             text=f"Name: {song['name']}\nArtist: {song['artist']}\n"
         )

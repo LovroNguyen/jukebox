@@ -15,9 +15,7 @@ class UIManager:
     def show_library_ui(self):
         self.clear_frame()
         app = LibraryUI(self.window, self)
-        self.window.mainloop()
 
     def show_playlist_ui(self):
         self.clear_frame()
         app = PlaylistUI(self.window, self)
-        self.window.mainloop()

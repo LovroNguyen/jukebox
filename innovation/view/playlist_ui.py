@@ -48,7 +48,7 @@ class PlaylistUI:
         self.remove_playlist_button = tk.Button(window, text="Remove playlist", width=14, command=self.remove_playlist)
         self.remove_playlist_button.grid(row=1, column=0, sticky="s", padx=(20,10), pady=(0, 20))
 
-        self.song_listbox = Listbox(window, height=7, width=50, exportselection=0)
+        self.song_listbox = tk.Listbox(window, height=7, width=50, exportselection=0)
         self.song_listbox.grid(row=1, column=1, sticky="nsew", padx=10, pady=(10,15))
         self.song_listbox.bind('<<ListboxSelect>>', self.on_song_select)
 
@@ -58,16 +58,16 @@ class PlaylistUI:
         self.song_details_label = tk.Label(window, justify="left", width=30, anchor="w")
         self.song_details_label.grid(row=2, column=2, columnspan=2, padx=(20, 20), pady=(10, 0))
 
-        self.playlist_song_listbox = Listbox(window, height=7, width=50, exportselection=0)
+        self.playlist_song_listbox = tk.Listbox(window, height=7, width=50, exportselection=0)
         self.playlist_song_listbox.grid(row=2, column=1, sticky="nsew", padx=10, pady=(10,10))
         self.playlist_song_listbox.bind('<<ListboxSelect>>', self.on_playlist_song_select)
 
-        self.playlist_listbox = Listbox(window, height=7, width=10, exportselection=0)
+        self.playlist_listbox = tk.Listbox(window, height=7, width=10, exportselection=0)
         self.playlist_listbox.grid(row=2, column=0, sticky="nsew", padx=(10,0), pady=(10,10))
         self.playlist_listbox.bind('<<ListboxSelect>>', self.on_playlist_select)
 
         self.songs = []
-        Helper.displayed_songs = []  # Store the currently displayed songs
+        Helper.displayed_songs = []
 
         Helper.load_songs(self)
         self.load_playlists()
