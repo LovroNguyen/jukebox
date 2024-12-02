@@ -7,15 +7,15 @@ import webbrowser
 
 class Helper:    
     @staticmethod
-    def clear_frame():
-        for widget in Helper.window.winfo_children():
+    def clear_frame(window):
+        for widget in window.winfo_children():
             widget.destroy()
 
     @staticmethod
-    def load_songs(self):
+    def load_songs(instance):
         script_dir = os.path.dirname(__file__)
         csv_path = os.path.join(script_dir, "songs.csv") 
-        self.songs = []
+        instance.songs = []
         with open(csv_path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
@@ -25,9 +25,8 @@ class Helper:
                     'artist': row['artist'],
                     'youtube_link': row['youtube_link']
                 }
-                self.songs.append(song)
-        self.update_song_listbox(self.songs)
-
+                instance.songs.append(song)
+        instance.update_song_listbox(instance.songs)
         
     @staticmethod
     def search_song(instance, event):
@@ -39,7 +38,7 @@ class Helper:
     def play_song(instance):
         selected_index = instance.song_listbox.curselection()
         if selected_index:
-            song = instance.displayed_songs[selected_index[0]]  # Use displayed_songs instead of self.songs
+            song = Helper.displayed_songs[selected_index[0]]  # Use displayed_songs instead of self.songs
             webbrowser.open(song['youtube_link'])
         else:
             messagebox.showwarning(title="Warning", message="Please choose a song from the list !")
@@ -70,4 +69,3 @@ class Helper:
         instance.song_details_label.config(
             text=f"Name: {song['name']}\nArtist: {song['artist']}\n"
         )
-
