@@ -8,14 +8,16 @@ class UIManager:
         self.window = tk.Tk()
         self.show_library_ui()
 
+    def clear_frame(self):
+        for widget in self.window.winfo_children():
+            widget.destroy()
+
     def show_library_ui(self):
-        self.window.destroy()
-        self.window = tk.Tk()
+        self.clear_frame()
         app = LibraryUI(self.window, self)
         self.window.mainloop()
 
     def show_playlist_ui(self):
-        self.window.destroy()
-        self.window = tk.Tk()
+        self.clear_frame()
         app = PlaylistUI(self.window, self)
         self.window.mainloop()

@@ -37,10 +37,10 @@ class PlaylistUI:
         self.back_button.grid(row=1, column=0, sticky="n", padx=(40,30), pady=(10, 10))
 
         self.add_to_playlist_button = tk.Button(window, text="Add", width=10, command=self.add_to_playlist)
-        self.add_to_playlist_button.grid(row=3, column=2, sticky="nw", padx=30, pady=(20, 10))
+        self.add_to_playlist_button.grid(row=3, column=2, sticky="nw", padx=(50,25), pady=(20, 10))
 
         self.remove_from_button = tk.Button(window, text="Remove", width=10, command=self.remove_song_from_playlist)
-        self.remove_from_button.grid(row=3, column=3, sticky="nw", padx=30, pady=(20, 10))
+        self.remove_from_button.grid(row=3, column=3, sticky="nw", padx=(25,50), pady=(20, 10))
 
         self.add_playlist_button = tk.Button(window, text="Add playlist", width=14, command=self.add_playlist)
         self.add_playlist_button.grid(row=1, column=0, padx=(20,10), pady=(20, 0))
