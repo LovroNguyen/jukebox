@@ -37,10 +37,10 @@ class PlaylistUI:
         self.back_button.grid(row=1, column=0, sticky="n", padx=(40,30), pady=(10, 10))
 
         self.add_to_playlist_button = tk.Button(window, text="Add", width=10, command=self.add_to_playlist)
-        self.add_to_playlist_button.grid(row=3, column=2, sticky="nw", padx=(50,25))
+        self.add_to_playlist_button.grid(row=3, column=2, sticky="sw", padx=(50,25), pady=(0,20))
 
         self.remove_from_button = tk.Button(window, text="Remove", width=10, command=self.remove_song_from_playlist)
-        self.remove_from_button.grid(row=3, column=3, sticky="nw", padx=(25,30))
+        self.remove_from_button.grid(row=3, column=3, sticky="sw", padx=(25,30), pady=(0,20))
 
         self.add_playlist_button = tk.Button(window, text="Add playlist", width=14, command=self.add_playlist)
         self.add_playlist_button.grid(row=1, column=0, padx=(20,10), pady=(20, 0))
@@ -87,8 +87,12 @@ class PlaylistUI:
     def on_playlist_song_select(self, event):
         selected_index = self.playlist_song_listbox.curselection()
         if selected_index:
-            song = Helper.displayed_songs[selected_index[0]]
-            Helper.display_song_details(self, song)
+            song_str = self.playlist_songs[selected_index[0]]
+            song_name, song_artist = song_str.split(' - ')
+            for song in Helper.displayed_songs:
+                if song['name'] == song_name and song['artist'] == song_artist:
+                    Helper.display_song_details(self, song)
+                    break
 
     def add_to_playlist(self):
         selected_song_index = self.song_listbox.curselection()

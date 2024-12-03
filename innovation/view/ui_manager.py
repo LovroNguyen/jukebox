@@ -7,6 +7,7 @@ class UIManager:
     def __init__(self):
         self.window = tk.Tk()
         self.show_library_ui()
+        self.window.mainloop()
 
     def clear_frame(self):
         for widget in self.window.winfo_children():

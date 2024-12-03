@@ -27,6 +27,7 @@ class PlaylistManagement:
 
     def load_playlist_songs(self, instance, playlist_name):
         instance.playlist_song_listbox.delete(0, tk.END)
+        instance.playlist_songs = []
         if os.path.exists(self.csv_path):
             with open(self.csv_path, newline='') as csvfile:
                 reader = csv.DictReader(csvfile)
@@ -35,6 +36,7 @@ class PlaylistManagement:
                         songs = row['songs'].split(';') if row['songs'] else []
                         for song in songs:
                             instance.playlist_song_listbox.insert(tk.END, song)
+                            instance.playlist_songs.append(song)
 
     def add_playlist(self, instance, playlist_name):
         if not playlist_name or not playlist_name.strip():
