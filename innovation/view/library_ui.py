@@ -46,6 +46,7 @@ class LibraryUI:
 
         self.play_button = tk.Button(window, text="Play", width=10, command=lambda: Helper.play_song(self))
         self.play_button.grid(row=4, column=2, sticky="s", padx=10, pady=(0, 20))
+        
 
         self.songs = []
         Helper.displayed_songs = []

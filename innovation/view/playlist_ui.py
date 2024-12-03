@@ -137,31 +137,57 @@ class PlaylistUI:
         self.playlist_manager.load_playlist_songs(self, playlist_name)
 
     def add_playlist(self):
-        playlist_name = simpledialog.askstring("Playlist Name", "Enter the name of the new playlist:")
-        if playlist_name:
-            self.playlist_manager.add_playlist(self, playlist_name)  # Call the correct method
-            self.load_playlists()  # Refresh the listbox
+        def on_ok():
+            playlist_name = entry.get()
+            if not playlist_name.strip():
+                tk.messagebox.showwarning("Warning", "Playlist name cannot be empty.")
+            else:
+                self.playlist_manager.add_playlist(self, playlist_name)
+                self.load_playlists()
+            dialog.destroy()
+
+        dialog = tk.Toplevel(self.window)
+        dialog.title("Playlist Name")
+        dialog.geometry("320x140")
+
+        label = tk.Label(dialog, text="Enter the name of the new playlist:")
+        label.pack(pady=10)
+
+        entry = tk.Entry(dialog, width=30)
+        entry.pack(pady=5)
+
+        button_frame = tk.Frame(dialog)
+        button_frame.pack(pady=5)
+
+        ok_button = tk.Button(button_frame, width=10, text="OK", command=on_ok)
+        ok_button.pack(side="left", padx=5, pady=5)
+
+        cancel_button = tk.Button(button_frame, width=10, text="Cancel", command=dialog.destroy)
+        cancel_button.pack(side="right", padx=5, pady=5)
 
     def remove_playlist(self):
         selected_index = self.playlist_listbox.curselection()
-        if selected_index:
+        if not selected_index:
+            tk.messagebox.showwarning("Warning", "Please select a playlist to remove.")
+            return
+        else:
             playlist_name = self.playlist_listbox.get(selected_index[0])
             self.playlist_manager.remove_playlist(self, playlist_name)
             self.load_playlists()
 
     def load_playlists(self):
-        self.playlist_listbox.delete(0, tk.END)  # Clear the listbox
-        playlists = self.playlist_manager.get_playlists()  # Fetch updated playlists
+        self.playlist_listbox.delete(0, tk.END)
+        playlists = self.playlist_manager.get_playlists()
         print(f"Loading playlists into listbox: {playlists}")  # Debug output
 
         for playlist in playlists:
-            self.playlist_listbox.insert(tk.END, playlist)  # Add each playlist to the listbox
+            self.playlist_listbox.insert(tk.END, playlist)
 
         print(f"Listbox contains {self.playlist_listbox.size()} items.")  # Debug output
 
     def update_song_listbox(self, songs):
         self.song_listbox.delete(0, tk.END)
-        Helper.displayed_songs = songs  # Update the displayed songs
+        Helper.displayed_songs = songs
         for song in songs:
             self.song_listbox.insert(tk.END, f"{song['name']} - {song['artist']}")    
 

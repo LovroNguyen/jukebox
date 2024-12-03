@@ -49,12 +49,6 @@ class PlaylistManagement:
             tk.messagebox.showwarning("Warning", f"The playlist '{playlist_name}' already exists.")
             return
 
-        if not os.path.exists(self.csv_path):
-            with open(self.csv_path, 'w', newline='') as csvfile:
-                fieldnames = ['name', 'songs']
-                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-                writer.writeheader()
-
         with open(self.csv_path, 'a', newline='') as csvfile:
             fieldnames = ['name', 'songs']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
